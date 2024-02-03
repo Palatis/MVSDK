@@ -266,22 +266,26 @@ namespace MVSDK
 
         private void GrabbingThreadStartInternal()
         {
-            while (IsOpen && IsGrabbing)
+            try
             {
-                try
+                while (IsOpen && IsGrabbing)
                 {
-                    var frame = GetFrame(1000);
-                    try { FrameGrabbed?.Invoke(this, frame); }
-                    catch { /* dont handle exception in event handlers */ }
-                    ReleaseFrame(ref frame);
-                }
-                catch
-                {
-                    try { Close(); } catch { }
-                    break;
+                    try
+                    {
+                        var frame = GetFrame(1000);
+                        try { FrameGrabbed?.Invoke(this, frame); }
+                        catch { /* dont handle exception in event handlers */ }
+                        ReleaseFrame(ref frame);
+                    }
+                    catch
+                    {
+                        try { Close(); } catch { }
+                        break;
+                    }
                 }
             }
-            ClearFrameBuffer();
+            catch { }
+            try { ClearFrameBuffer(); } catch { }
         }
 
         /// <summary>开始取流</summary>
