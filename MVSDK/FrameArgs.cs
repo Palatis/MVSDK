@@ -34,10 +34,10 @@ namespace MVSDK
         /// <summary>图像在网络传输所用的时间(单位:微秒,非 GigE 相机该值为0)</summary>
         public uint ReceiveTime;
         /// <summary>预留字段</summary>
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 19, ArraySubType = UnmanagedType.I4)]
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private fixed uint InfoReserved[19];
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         /// <summary>预留字段</summary>
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10, ArraySubType = UnmanagedType.I4)]
         private fixed uint FrameReserved[10];
 
 #if NET5_0_OR_GREATER
