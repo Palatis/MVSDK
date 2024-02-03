@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net481;net6.0;net8.0</TargetFrameworks>
+	</PropertyGroup>
+	<PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Description>Huaray (iRAYPAL) MVSDK C# wrapper - Abstraction</Description>
+		<PackageProjectUrl>https://github.com/Palatis/MVSDK</PackageProjectUrl>
+		<Copyright>Copyright (C) 2024 Victor Tseng</Copyright>
+		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Collections.Immutable" Version="*" Condition="$(TargetFramework) == 'net481'" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+	
+</Project>
