@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
@@ -74,6 +75,7 @@ namespace MVSDK
         public event EventHandler<ParameterUpdatedEventArgs> ParameterUpdated;
         public event EventHandler<StreamEventArgs> StreamEvent;
         public event EventHandler<MessageChannelEventArgs> MessageChannelEvent;
+        public event EventHandler<ErrorEventArgs> Error;
 
         public event EventHandler<IFrame> FrameGrabbed;
 
@@ -278,25 +280,30 @@ namespace MVSDK
 
         private void GrabbingThreadStartInternal()
         {
-            try
+            while (true)
             {
-                while (IsOpen && IsGrabbing)
+                try
                 {
-                    try
-                    {
-                        var frame = GetFrame(1000);
-                        try { FrameGrabbed?.Invoke(this, frame); }
-                        catch { /* dont handle exception in event handlers */ }
-                        ReleaseFrame(ref frame);
-                    }
-                    catch
-                    {
-                        try { StopGrabbing(); } catch { }
+                    if (!(IsOpen && IsGrabbing))
                         break;
+
+                    var frame = GetFrame(1000);
+                    try { FrameGrabbed?.Invoke(this, frame); }
+                    catch (Exception ex)
+                    {
+                        try { Error?.Invoke(this, new ErrorEventArgs(ex)); }
+                        catch { /* dont handle exception in error event handler */ }
                     }
+                    ReleaseFrame(ref frame);
+                }
+                catch (Exception ex)
+                {
+                    try { StopGrabbing(); } catch { }
+                    try { Error?.Invoke(this, new ErrorEventArgs(ex)); }
+                    catch { /* dont handle exception in error event handler */ }
+                    break;
                 }
             }
-            catch { }
             try { ClearFrameBuffer(); } catch { }
             Interlocked.Exchange(ref _GrabbingThread, null);
         }

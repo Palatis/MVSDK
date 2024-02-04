@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 
 namespace MVSDK
@@ -28,6 +29,7 @@ namespace MVSDK
         event EventHandler<MessageChannelEventArgs> MessageChannelEvent;
         event EventHandler<ParameterUpdatedEventArgs> ParameterUpdated;
         event EventHandler<StreamEventArgs> StreamEvent;
+        event EventHandler<ErrorEventArgs> Error;
 
         void SetUsbTransferParameters(uint num, uint size);
 
