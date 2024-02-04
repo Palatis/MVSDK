@@ -27,32 +27,32 @@ namespace MVSDK
         public const int MSG_EVENT_ID_DATA_READ_OUT = 0x9006;
 
         /// <summary>设备连接状态事件回调函数声明</summary>
-        /// <param name="pConnectArg">[in] 回调时主动推送的设备连接状态事件信息</param>
-        /// <param name="pUser">[in] 用户自定义数据</param>
+        /// <param name="args">[in] 回调时主动推送的设备连接状态事件信息</param>
+        /// <param name="state">[in] 用户自定义数据</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-        internal delegate void ConnectCallBackFunc(ref ConnectArgs pConnectArg, IntPtr state);
+        internal delegate void ConnectCallBackFunc(ref ConnectArgs args, IntPtr state);
 
         /// <summary>参数更新事件回调函数声明</summary>
         /// <param name="pParamUpdateArg">[in] 回调时主动推送的参数更新事件信息</param>
-        /// <param name="pUser">[in] 用户自定义数据</param>
+        /// <param name="state">[in] 用户自定义数据</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         internal delegate void ParamUpdateCallBackFunc(ref ParamUpdateArgs pParamUpdateArg, IntPtr state);
 
         /// <summary>流事件回调函数声明</summary>
-        /// <param name="pStreamArg">[in] 回调时主动推送的流事件信息</param>
-        /// <param name="pUser">[in] 用户自定义数据</param>
+        /// <param name="args">[in] 回调时主动推送的流事件信息</param>
+        /// <param name="state">[in] 用户自定义数据</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-        internal delegate void StreamCallBackFunc(ref StreamArgs pStreamArg, IntPtr state);
+        internal delegate void StreamCallBackFunc(ref StreamArgs args, IntPtr state);
 
         /// <summary>消息通道事件回调函数声明</summary>
-        /// <param name="pMsgChannelArg">[in] 回调时主动推送的消息通道事件信息</param>
-        /// <param name="pUser">[in] 用户自定义数据</param>
+        /// <param name="args">[in] 回调时主动推送的消息通道事件信息</param>
+        /// <param name="state">[in] 用户自定义数据</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-        internal delegate void MsgChannelCallBackFunc(ref MessageChannelArgs pMsgChannelArg, IntPtr state);
+        internal delegate void MsgChannelCallBackFunc(ref MessageChannelArgs args, IntPtr state);
 
         /// <summary>帧数据信息回调函数声明</summary>
-        /// <param name="pFrame">[in]回调时主动推送的帧信息</param>
-        /// <param name="pUser">[in] 用户自定义数据</param>
+        /// <param name="frame">[in]回调时主动推送的帧信息</param>
+        /// <param name="state">[in] 用户自定义数据</param>
         [UnmanagedFunctionPointer(CallingConvention.StdCall, CharSet = CharSet.Ansi)]
         internal delegate void FrameCallBackFunc(ref FrameArgs frame, IntPtr state);
     }
