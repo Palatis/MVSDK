@@ -7,7 +7,7 @@
 		<Nullable>disable</Nullable>
 	</PropertyGroup>
 	<PropertyGroup>
-		<VersionPrefix>2.4.1.2</VersionPrefix>
+		<VersionPrefix>2.4.1.4</VersionPrefix>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Description>Huaray (iRAYPAL) MVSDK C# wrapper</Description>
