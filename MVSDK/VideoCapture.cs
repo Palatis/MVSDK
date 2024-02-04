@@ -79,7 +79,7 @@ namespace MVSDK
 
         public event EventHandler<IFrame> FrameGrabbed;
 
-        internal readonly IntPtr m_DevHandle = IntPtr.Zero;
+        private readonly IntPtr m_DevHandle = IntPtr.Zero;
 
         private readonly IMV.StreamCallBackFunc _StreamCallback;
         private readonly IMV.ConnectCallBackFunc _ConnectCallback;
