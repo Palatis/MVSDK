@@ -562,7 +562,7 @@ namespace MVSDK
                     throw new InvalidEnumArgumentException(nameof(format), (int)format, typeof(PixelType));
             }
 
-            var size = (int)(frame.Width * frame.Height * format.GetEffectiveBpp() + 7) / 8;
+            var size = (int)(frame.Width * frame.Height * format.GetBitsPerPixel() + 7) / 8;
             var buffer = buf == IntPtr.Zero || size > bufSize
                 ? Marshal.ReAllocHGlobal(buf, (IntPtr)size) : buf;
             var param = new IMV.ConvertImageParams()
@@ -605,7 +605,7 @@ namespace MVSDK
                     throw new InvalidEnumArgumentException(nameof(frame.PixelType), (int)frame.PixelType, typeof(PixelType));
             }
 
-            var size = (int)(frame.Width * frame.Height * frame.PixelType.GetEffectiveBpp() + 7) / 8;
+            var size = (int)(frame.Width * frame.Height * frame.PixelType.GetBitsPerPixel() + 7) / 8;
             var buffer = buf == IntPtr.Zero || size > bufSize
                 ? Marshal.ReAllocHGlobal(buf, (IntPtr)size) : buf;
             var param = new IMV.FlipImageParams()
@@ -646,7 +646,7 @@ namespace MVSDK
                     throw new InvalidEnumArgumentException(nameof(frame.PixelType), (int)frame.PixelType, typeof(PixelType));
             }
 
-            var size = (int)(frame.Width * frame.Height * frame.PixelType.GetEffectiveBpp() + 7) / 8;
+            var size = (int)(frame.Width * frame.Height * frame.PixelType.GetBitsPerPixel() + 7) / 8;
             var buffer = buf == IntPtr.Zero || size > bufSize
                 ? Marshal.ReAllocHGlobal(buf, (IntPtr)size) : buf;
             var param = new IMV.RotateImageParams()

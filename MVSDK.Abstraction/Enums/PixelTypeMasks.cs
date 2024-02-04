@@ -2,10 +2,14 @@ namespace MVSDK
 {
     internal static class PixelTypeMasks
     {
+        public const uint COLOR_MASK = 0xFF000000;
+        public const uint BITS_PER_PIXEL_MASK = 0x00FF0000;
+        public const uint GVSP_TYPE_MASK = 0x0000FFFF;
+
         public const uint MONO = 0x01000000;
         public const uint COLOR = 0x02000000;
         public const uint CUSTOM = 0x80000000;
-        public const uint COLOR_MASK = 0xFF000000;
+
         public const uint OCCUPY_1BIT = 0x00010000;
         public const uint OCCUPY_2BIT = 0x00020000;
         public const uint OCCUPY_4BIT = 0x00040000;
