@@ -1,4 +1,4 @@
-﻿using MVSDK.Helpers;
+using MVSDK.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -86,8 +86,7 @@ namespace MVSDK
 
         private VideoCapture()
         {
-            // deligate gets recycled from time-to-time
-            // cache them here
+            // deligate gets GC-ed from time-to-time, cache them here
             _StreamCallback = StreamCallback;
             _ConnectCallback = ConnectCallback;
             _MessageChannelCallback = MessageChannelCallback;
@@ -180,23 +179,36 @@ namespace MVSDK
             IMVApi.IMV_GIGE_ForceIpAddress(m_DevHandle, $"{address}", mask != null ? $"{mask}" : null, gateway != null ? $"{gateway}" : null).ThrowIfError();
 
         #region Callbacks
-        private void StreamCallback(ref IMV.StreamArgs args, IntPtr state) =>
-            StreamEvent?.Invoke(this, args.ToEventArgs());
+        private void StreamCallback(ref IMV.StreamArgs args, IntPtr state)
+        {
+            try { StreamEvent?.Invoke(this, args.ToEventArgs()); }
+            catch { /* dont handle exception in event handler */ }
+        }
 
-        private void ParamUpdateCallback(ref IMV.ParamUpdateArgs args, IntPtr state) =>
-            ParameterUpdated?.Invoke(this, args.ToEventArgs());
+        private void ParamUpdateCallback(ref IMV.ParamUpdateArgs args, IntPtr state)
+        {
+            try { ParameterUpdated?.Invoke(this, args.ToEventArgs()); }
+            catch { /* dont handle exception in event handler */ }
+        }
 
-        private void MessageChannelCallback(ref IMV.MessageChannelArgs args, IntPtr state) =>
-            MessageChannelEvent?.Invoke(this, args.ToEventArgs());
+        private void MessageChannelCallback(ref IMV.MessageChannelArgs args, IntPtr state)
+        {
+            try { MessageChannelEvent?.Invoke(this, args.ToEventArgs()); }
+            catch { /* dont handle exception in event handler */ }
+        }
 
         private void ConnectCallback(ref IMV.ConnectArgs args, IntPtr state)
         {
-            switch (args.EventType)
+            try
             {
-                case IMV.ConnectEventType.Connected: Connected?.Invoke(this, EventArgs.Empty); break;
-                case IMV.ConnectEventType.Disconnected: Disconnected?.Invoke(this, EventArgs.Empty); break;
-                default: break;
+                switch (args.EventType)
+                {
+                    case IMV.ConnectEventType.Connected: Connected?.Invoke(this, EventArgs.Empty); break;
+                    case IMV.ConnectEventType.Disconnected: Disconnected?.Invoke(this, EventArgs.Empty); break;
+                    default: break;
+                }
             }
+            catch { /* dont handle exception in event handler */ }
         }
 
         //private void FrameGrabbedCallback(ref FrameEventArgs frame, nint state) => 
