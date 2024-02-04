@@ -39,6 +39,7 @@ namespace MVSDK.Helpers
                             CameraIndex = index,
                             CameraType = device.CameraType,
                             InterfaceType = device.InterfaceType,
+                            InterfaceName = device.InterfaceName,
 
                             CameraKey = device.CameraKey,
                             UserDefinedName = device.UserDefinedName,
@@ -74,6 +75,7 @@ namespace MVSDK.Helpers
                             CameraIndex = index,
                             CameraType = device.CameraType,
                             InterfaceType = device.InterfaceType,
+                            InterfaceName = device.InterfaceName,
 
                             CameraKey = device.CameraKey,
                             UserDefinedName = device.UserDefinedName,
@@ -115,6 +117,7 @@ namespace MVSDK.Helpers
                         CameraIndex = index,
                         CameraType = device.CameraType,
                         InterfaceType = device.InterfaceType,
+                        InterfaceName = device.InterfaceName,
 
                         CameraKey = device.CameraKey,
                         UserDefinedName = device.UserDefinedName,
@@ -163,31 +166,31 @@ namespace MVSDK.Helpers
                     return new StreamStatisticsInfo()
                     {
                         CameraType = info.nCameraType,
-                        ImageError = info.GigEStatisticsInfo.imageError,
-                        LostPacketBlock = info.GigEStatisticsInfo.lostPacketBlock,
-                        ImageReceived = info.GigEStatisticsInfo.imageReceived,
-                        FPS = info.GigEStatisticsInfo.fps,
-                        Bandwidthh = info.GigEStatisticsInfo.bandwidth,
+                        ImageError = info.GigEStatisticsInfo.ImageError,
+                        LostPacketBlock = info.GigEStatisticsInfo.LostPacketBlock,
+                        ImageReceived = info.GigEStatisticsInfo.ImageReceived,
+                        FramesPerSecond = info.GigEStatisticsInfo.FramesPerSecond,
+                        Bandwidthh = info.GigEStatisticsInfo.Bandwidth,
                     };
                 case CameraType.USB3Vision:
                     return new StreamStatisticsInfo()
                     {
                         CameraType = info.nCameraType,
-                        ImageError = info.USB3StatisticsInfo.imageError,
-                        LostPacketBlock = info.USB3StatisticsInfo.lostPacketBlock,
-                        ImageReceived = info.USB3StatisticsInfo.imageReceived,
-                        FPS = info.USB3StatisticsInfo.fps,
-                        Bandwidthh = info.USB3StatisticsInfo.bandwidth,
+                        ImageError = info.USB3StatisticsInfo.ImageError,
+                        LostPacketBlock = info.USB3StatisticsInfo.LostPacketBlock,
+                        ImageReceived = info.USB3StatisticsInfo.ImageReceived,
+                        FramesPerSecond = info.USB3StatisticsInfo.FramesPerSecond,
+                        Bandwidthh = info.USB3StatisticsInfo.Bandwidth,
                     };
                 case CameraType.PCIeVision:
                     return new StreamStatisticsInfo()
                     {
                         CameraType = info.nCameraType,
-                        ImageError = info.PCIeStatisticsInfo.imageError,
-                        LostPacketBlock = info.PCIeStatisticsInfo.lostPacketBlock,
-                        ImageReceived = info.PCIeStatisticsInfo.imageReceived,
-                        FPS = info.PCIeStatisticsInfo.fps,
-                        Bandwidthh = info.PCIeStatisticsInfo.bandwidth,
+                        ImageError = info.PCIeStatisticsInfo.ImageError,
+                        LostPacketBlock = info.PCIeStatisticsInfo.LostPacketBlock,
+                        ImageReceived = info.PCIeStatisticsInfo.ImageReceived,
+                        FramesPerSecond = info.PCIeStatisticsInfo.FramesPerSecond,
+                        Bandwidthh = info.PCIeStatisticsInfo.Bandwidth,
                     };
                 case CameraType.CameraLink:
                 case CameraType.Undefined:

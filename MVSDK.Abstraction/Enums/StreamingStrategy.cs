@@ -7,7 +7,7 @@
         Sequential,
         /// <summary>获取最新的图片</summary>
         LatestImage,
-        /// <summary>等待获取下一张图片(只针对GigE相机)</summary>
+        /// <summary>等待获取下一张图片 (只针对 GigE 相机)</summary>
         UpcomingImage,
         /// <summary>未定义</summary>
         Undefined,

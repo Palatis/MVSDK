@@ -22,7 +22,7 @@ namespace MVSDK
         /// <summary>判断设备是否正在取流</summary>
         public bool IsGrabbing => IMVApi.IMV_IsGrabbing(m_DevHandle);
 
-        /// <summary>获取设备的当前访问权限, 仅限Gige设备使用</summary>
+        /// <summary>获取设备的当前访问权限, 仅限 GigE 设备使用</summary>
         public CameraAccessPermission AccessPermission
         {
             get
@@ -168,15 +168,15 @@ namespace MVSDK
         /// <summary>关闭设备</summary>
         public void Close() => IMVApi.IMV_Close(m_DevHandle).ThrowIfError();
 
-        ///// <summary>修改设备IP, 仅限Gige设备使用</summary>
-        ///// <param name="address">[IN] IP地址</param>
-        ///// <param name="pSubnetMask">[IN] 子网掩码</param>
-        ///// <param name="pGateway">[IN] 默认网关</param>
-        ///// <remarks>
-        ///// <para>1、调用该函数时如果 pSubnetMask 和 pGateway 都设置了有效值，则以此有效值为准;</para>
-        ///// <para>2、调用该函数时如果 pSubnetMask 和 pGateway 都设置了 NULL，则内部实现时用它所连接网卡的子网掩码和网关代替</para>
-        ///// <para>3、调用该函数时如果 pSubnetMask 和 pGateway 两者中其中一个为 NULL，另一个非 NULL，则返回错误</para>
-        ///// </remarks>
+        /// <summary>修改设备IP, 仅限Gige设备使用</summary>
+        /// <param name="address">[IN] IP地址</param>
+        /// <param name="mask">[IN] 子网掩码</param>
+        /// <param name="gateway">[IN] 默认网关</param>
+        /// <remarks>
+        /// <para>1、调用该函数时如果 mask 和 gateway 都设置了有效值，则以此有效值为准;</para>
+        /// <para>2、调用该函数时如果 mask 和 gateway 都设置了 NULL，则内部实现时用它所连接网卡的子网掩码和网关代替</para>
+        /// <para>3、调用该函数时如果 mask 和 gateway 两者中其中一个为 NULL，另一个非 NULL，则返回错误</para>
+        /// </remarks>
         public void ForceIP(IPAddress address, IPAddress mask, IPAddress gateway) =>
             IMVApi.IMV_GIGE_ForceIpAddress(m_DevHandle, $"{address}", mask != null ? $"{mask}" : null, gateway != null ? $"{gateway}" : null).ThrowIfError();
 
@@ -366,7 +366,7 @@ namespace MVSDK
             IMVApi.IMV_GetChunkDataByIndex(m_DevHandle, ref frame, index, ref info).ThrowIfError();
             return (
                 info.ChunkId,
-                NativeHelper.FromArray<IMV.String>(info.pParamNameList, info.nParamCnt)
+                NativeHelper.FromArray<IMV.String>(info.Parameters, info.ParameterCount)
                     .Select(str => str.Value)
                     .ToImmutableArray()
             );
