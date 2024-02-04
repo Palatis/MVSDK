@@ -279,13 +279,14 @@ namespace MVSDK
                     }
                     catch
                     {
-                        try { Close(); } catch { }
+                        try { StopGrabbing(); } catch { }
                         break;
                     }
                 }
             }
             catch { }
             try { ClearFrameBuffer(); } catch { }
+            Interlocked.Exchange(ref _GrabbingThread, null);
         }
 
         /// <summary>开始取流</summary>
@@ -303,15 +304,7 @@ namespace MVSDK
 
         /// <summary>停止取流</summary>
         /// <returns>成功，返回IMV_OK；错误，返回错误码</returns>
-        public void StopGrabbing()
-        {
-            IMVApi.IMV_StopGrabbing(m_DevHandle).ThrowIfError();
-            if (_GrabbingThread != null)
-            {
-                _GrabbingThread.Join();
-                Interlocked.Exchange(ref _GrabbingThread, null);
-            }
-        }
+        public void StopGrabbing() => IMVApi.IMV_StopGrabbing(m_DevHandle).ThrowIfError();
 
         /// <summary>获取一帧图像(同步获取帧数据机制)</summary>
         /// <param name="frame">[OUT] 帧数据信息</param>
