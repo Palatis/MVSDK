@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace MVSDK
 {
@@ -10,6 +11,8 @@ namespace MVSDK
             switch (status)
             {
                 case StatusCode.Success: break;
+                case StatusCode.Timeout:
+                    throw new HuarayException(status, new TimeoutException());
                 //case StatusCode.Error:
                 //case StatusCode.InvalidHandle:
                 //case StatusCode.InvalidParam:
@@ -23,6 +26,8 @@ namespace MVSDK
                 //case StatusCode.InvalidAccess:
                 //case StatusCode.InvalidRange:
                 //case StatusCode.NotSupported:
+                //case StatusCode.RestoreStream:
+                //case StatusCode.ReconnectDevice:
                 default:
                     throw new HuarayException(status);
             }

@@ -5,8 +5,8 @@ namespace MVSDK
     public class HuarayException : Exception
     {
         public StatusCode StatusCode { get; }
-        public HuarayException(StatusCode status) :
-            base(_FormatMessage(status))
+        public HuarayException(StatusCode status, Exception inner = null) :
+            base(_FormatMessage(status), inner)
         {
             StatusCode = status;
         }
