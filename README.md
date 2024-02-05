@@ -1,7 +1,7 @@
 # MVSDK C#
 
 This is a C# wrapper for [Huaray (iRAYPLE)](https://www.irayple.com) MVSDK C library,
-similar to the provided `MVSDK_Net.dll` and `MVSDKFG_Net.dll` provided by iRAYPAL.
+similar to the provided `MVSDK_Net.dll` and `MVSDKFG_Net.dll` provided by iRAYPLE.
 
 However this library have C structs processed into magaged class and structs for
 easier use.
@@ -15,6 +15,11 @@ Official `MVViewer Client` can be downloaded from [Huaray (iRAYPLE)](https://www
 website, the latest version tested is `v2.4.1` (2023-11-22).
 
 # Usage
+## Native Library Version
+```C#
+var version = HuarayLibrary.Version;
+```
+
 ## Enumerate devices
 ```C#
 // scan from all interface types
@@ -52,7 +57,7 @@ If you want to create the `VideoCapture` instance by index, do a scan first your
 // attach event handler
 camera.FrameGrabbed += (sender, e) => 
 {
-    /* do something the the frame */
+    /* do something with the frame */
 };
 
 // start streaming
