@@ -357,7 +357,7 @@ namespace MVSDK
         /// <para>该同步获取帧机制和异步获取帧机制(IMV_AttachGrabbing)互斥,对于同一设备，系统中两者只能选其一。</para>
         /// <para>使用内部缓存获取图像，需要IMV_ReleaseFrame进行释放图像缓存。</para>
         /// </remarks>
-        private FrameArgs GetFrame(in int timeout = Timeout.Infinite)
+        public FrameArgs GetFrame(in int timeout = Timeout.Infinite)
         {
             var frame = default(FrameArgs);
             IMVApi.IMV_GetFrame(m_DevHandle, ref frame, (uint)timeout).ThrowIfError();
@@ -526,12 +526,12 @@ namespace MVSDK
 
         #region Recording
         /// <summary>打开录像</summary>
-        /// <param name="filename">檔案名稱</param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="framerate"></param>
-        /// <param name="quality"></param>
-        /// <param name="type"></param>
+        /// <param name="filename">保存视频路径</param>
+        /// <param name="width">图像宽</param>
+        /// <param name="height">图像高</param>
+        /// <param name="framerate">帧率 (大于 0)</param>
+        /// <param name="quality">视频质量 (1 - 100)</param>
+        /// <param name="type">视频格式</param>
         public void StartRecording(in string filename, in uint width = 0, in uint height = 0, in float framerate = 25.0f, in uint quality = 90, in VideoType type = VideoType.AVI)
         {
             var filePtr = Marshal.StringToHGlobalAnsi(filename);
