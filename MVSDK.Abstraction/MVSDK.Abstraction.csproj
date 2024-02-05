@@ -4,6 +4,7 @@
 		<TargetFrameworks>net481;net6.0;net8.0</TargetFrameworks>
 	</PropertyGroup>
 	<PropertyGroup>
+		<Version>1.0.3</Version>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Description>Huaray (iRAYPAL) MVSDK C# wrapper - Abstraction</Description>
@@ -11,7 +12,6 @@
 		<Copyright>Copyright (C) 2024 Victor Tseng</Copyright>
 		<PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
 		<PackageLicenseExpression>BSD-3-Clause</PackageLicenseExpression>
-		<Version>1.0.2</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
