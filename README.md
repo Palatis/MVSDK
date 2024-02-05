@@ -103,7 +103,7 @@ camera.Dispose(); // don't forget to dispose native resources when you're done
 
 # Disclaimer
 
-**The authohr of this software is not affiliated with
+**The author of this software is not affiliated with
 [Zhejiang Huaray (iRAYPLE) Cooperation](https://www.irayple.com) in any way. All
 trademarks and registered trademarks are property of their respective owners,
 and company, product and service names mentioned in this readme or appearing in
