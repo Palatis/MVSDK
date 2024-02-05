@@ -579,6 +579,8 @@ namespace MVSDK
         /// <summary>像素格式转换</summary>
         /// <param name="frame">[IN] 待转换的圖像</param>
         /// <param name="format">[IN] 目標像素格式</param>
+        /// <param name="buf">齣齣緩衝區，可以為 <see cref="IntPtr.Zero" /></param>
+        /// <param name="bufSize">輸出緩衝區的長度，提供緩衝區時必須告知長度</param>
         /// <returns>转换后的图像</returns>
         /// <remarks>
         /// <para>只支持转化成目标像素格式 RGB8 / BGR8 / Mono8 / BGRA8</para>
@@ -587,6 +589,7 @@ namespace MVSDK
         /// <para>像素格式为 YUV422Packed 的时，图像宽须能被 2 整除</para>
         /// <para>像素格式为 YUYVPacked 的时，图像宽须能被 2 整除</para>
         /// <para>转换后的图像数据存储是从最上面第一行开始的，这个是相机数据的默认存储方向</para>
+        /// <para>當無指定緩衝區或緩衝區長度不足時，會自動配置緩衝區。新配置的緩衝區會在 <see cref="IFrame.Data" /> 中。</para>
         /// </remarks>
         public IFrame ConvertImage(in IFrame frame, in PixelType format, in IntPtr buf, in uint bufSize)
         {
@@ -633,8 +636,13 @@ namespace MVSDK
         /// <summary>图像翻转</summary>
         /// <param name="frame">[IN] 待翻转的圖像</param>
         /// <param name="flip">[IN] 翻转方式</param>
+        /// <param name="buf">齣齣緩衝區，可以為 <see cref="IntPtr.Zero" /></param>
+        /// <param name="bufSize">輸出緩衝區的長度，提供緩衝區時必須告知長度</param>
         /// <returns>翻转后的图像</returns>
-        /// <remarks>只支持像素格式 RGB8 / BGR8 / Mono8 的图像。</remarks>
+        /// <remarks>
+        /// <para>只支持像素格式 RGB8 / BGR8 / Mono8 的图像。</para>
+        /// <para>當無指定緩衝區或緩衝區長度不足時，會自動配置緩衝區。新配置的緩衝區會在 <see cref="IFrame.Data" /> 中。</para>
+        /// </remarks>
         public IFrame FlipImage(in IFrame frame, in FlipType flip, in IntPtr buf, in uint bufSize)
         {
             switch (frame.PixelType)
@@ -672,10 +680,13 @@ namespace MVSDK
         /// <summary>图像顺时针旋转</summary>
         /// <param name="frame">[IN] 待旋转的圖像</param>
         /// <param name="angle">[IN] 旋转角度</param>
-        /// <param name="buf"></param>
-        /// <param name="bufSize"></param>
+        /// <param name="buf">齣齣緩衝區，可以為 <see cref="IntPtr.Zero" /></param>
+        /// <param name="bufSize">輸出緩衝區的長度，提供緩衝區時必須告知長度</param>
         /// <returns>旋转后的图像</returns>
-        /// <remarks>只支持像素格式 RGB8 / BGR8 / Mono8 的图像。</remarks>
+        /// <remarks>
+        /// <para>只支持像素格式 RGB8 / BGR8 / Mono8 的图像。</para>
+        /// <para>當無指定緩衝區或緩衝區長度不足時，會自動配置緩衝區。新配置的緩衝區會在 <see cref="IFrame.Data" /> 中。</para>
+        /// </remarks>
         public IFrame RotateImage(in IFrame frame, in RotationAngle angle, in IntPtr buf, in uint bufSize)
         {
             switch (frame.PixelType)
