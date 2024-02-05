@@ -48,6 +48,11 @@ namespace MVSDK
         /// <remarks>不能在拉流过程中设置</remarks>
         public uint BufferCount { set => IMVApi.IMV_SetBufferCount(m_DevHandle, value).ThrowIfError(); }
 
+        /// <summary>Timeout for incoming frame</summary>
+        public int FrameTimeout { get; set; } = 1000;
+        /// <summary>Max retry in grabbing thread</summary>
+        public int MaxFrameRetry { get; set; } = 5;
+
         /// <summary>获取设备信息</summary>
         public DeviceInformation Information
         {
@@ -280,6 +285,7 @@ namespace MVSDK
 
         private void GrabbingThreadStartInternal()
         {
+            var retry = 0;
             while (true)
             {
                 try
@@ -287,14 +293,31 @@ namespace MVSDK
                     if (!(IsOpen && IsGrabbing))
                         break;
 
-                    var frame = GetFrame(1000);
-                    try { FrameGrabbed?.Invoke(this, frame); }
-                    catch (Exception ex)
+                    if (FrameGrabbed == null)
                     {
-                        try { Error?.Invoke(this, new ErrorEventArgs(ex)); }
-                        catch { /* dont handle exception in error event handler */ }
+                        Thread.Sleep(250);
+                        continue;
                     }
-                    ReleaseFrame(ref frame);
+
+                    try
+                    {
+                        var frame = GetFrame(FrameTimeout);
+                        try { FrameGrabbed?.Invoke(this, frame); }
+                        catch (Exception ex)
+                        {
+                            try { Error?.Invoke(this, new ErrorEventArgs(ex)); }
+                            catch { /* dont handle exception in error event handler */ }
+                        }
+                        ReleaseFrame(ref frame);
+                        retry = 0;
+                    }
+                    catch (HuarayException ex) when (ex.StatusCode == StatusCode.Timeout)
+                    {
+                        ++retry;
+                        try { ClearFrameBuffer(); } catch { }
+                        if (retry >= MaxFrameRetry)
+                            throw;
+                    }
                 }
                 catch (Exception ex)
                 {
